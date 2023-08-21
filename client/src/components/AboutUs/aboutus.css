@@ -1,0 +1,73 @@
+/* aboutus.css */
+:root {
+  --white: #fff;
+  --bg1: #2F2F2F;
+  --bg2: #202020;
+  --button: #FF8838;
+  --hover: #FF7B23;
+  --black: #000;
+  --gradientColour: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+}
+
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--bg2);
+  padding: 9rem;
+  overflow: hidden;
+}
+
+.about-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14rem;
+  margin-top: 4rem;
+}
+
+.about-text {
+  color: var(--white);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.2rem; /* Using rem for font size */
+  text-align: left;
+  padding-right: 3rem;
+}
+
+.about-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  transform: translateY(5%); /* Using percentage for translation */
+  opacity: 0;
+  animation: slideUp 1s ease-in-out 0.5s forwards;
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.about-image img {
+  width: 18rem; /* Using rem for image width */
+  height: 18rem; /* Using rem for image height */
+  margin-left: 2rem;
+  box-shadow: 0 0.4rem 0.6rem rgba(47, 45, 45, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.about-image::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 2%; /* Using percentage for positioning */
+  bottom: -2%; /* Using percentage for positioning */
+  right: -2%; /* Using percentage for positioning */
+  z-index: -1;
+  border-radius: 5px;
+}

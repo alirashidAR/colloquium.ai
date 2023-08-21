@@ -1,0 +1,215 @@
+/* Colours and styling */
+:root {
+  --white: #fff;
+  --bg1: #2F2F2F;
+  --bg2: #202020;
+  --button: #FF8838;
+  --hover: #FF7B23;
+  --black: #000;
+  --gradientColour: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+}
+
+.home {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  background: var(--bg2);
+}
+.home .overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: var(--bg1);
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  mix-blend-mode: hard-light;
+}
+.home .homeContent {
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 8rem 1.5rem 3rem;
+  display: flex;
+  row-gap: 3rem;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  margin: auto;
+  color: rgb(255, 255, 255);
+  z-index: 100;
+}
+.home .homeContent .textDiv {
+  padding: 2rem 0 4rem;
+}
+.home .homeContent .textDiv .homeTitle {
+  position: relative;
+  font-size: 1.8rem;
+  padding: 0 0 1.5rem;
+}
+.home .homeContent .textDiv .smallText {
+  font-size: 11px;
+}
+.home .homeContent .textDiv .input {
+  height: 40px;
+  margin-top: 3rem;
+  padding: 0 1rem;
+  background: rgb(235, 239, 239);
+}
+.home .homeContent .textDiv .input input {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 500;
+}
+.home .homeContent .textDiv .input input::-moz-placeholder {
+  font-size: 13px;
+}
+.home .homeContent .textDiv .input input::placeholder {
+  font-size: 13px;
+}
+.home .homeContent .textDiv .searchOptions {
+  position: absolute;
+  background: var(--button);
+  width: -moz-max-content;
+  width: max-content;
+  bottom: -1rem;
+  -moz-column-gap: 0.8rem;
+       column-gap: 0.8rem;
+  padding: 5px 1rem;
+  border-radius: 3rem;
+  left: 50%;
+  transform: translate(-50%);
+  justify-content: center;
+  cursor: pointer;
+}
+.home .homeContent .textDiv .searchOptions:hover {
+  background: var(--hover);
+}
+.home .homeContent .textDiv .searchOptions .icon {
+  font-size: 18px;
+}
+.home .homeContent .textDiv .searchOptions span {
+  font-size: 13px;
+}
+.home .homeContent .imageContainer {
+  position: relative;
+  border: 5px solid var(--button);
+  overflow: hidden;
+}
+.home .homeContent .imageContainer img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.home .homeContent .homeFooterIcons {
+  width: 100%;
+  justify-content: space-between;
+}
+.home .homeContent .homeFooterIcons .icon {
+  font-size: 20px;
+  margin: 0 5px;
+  color: var(--white);
+  font-weight: 600;
+}
+.home .homeContent .homeFooterIcons .icon:hover {
+  color: var(--hover);
+}
+
+@media screen and (min-width: 500px) {
+  .home .homeContent .textDiv .smallText {
+    font-size: 16px;
+  }
+  .home .homeContent .textDiv .homeTitle {
+    position: relative;
+    font-size: 2.3rem;
+    width: -moz-max-content;
+    width: max-content;
+  }
+  .home .homeContent .textDiv .homeTitle::after {
+    position: absolute;
+    content: "";
+    background: var(--darkslateblue);
+    height: 5px;
+    width: 145px;
+    right: 0px;
+    bottom: 5px;
+    z-index: -1;
+  }
+}
+@media screen and (min-width: 940px) {
+  .home {
+    height: 60vh;
+  }
+  .home .homeContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    gap: 8rem;
+    padding: 8rem 3rem 3rem;
+  }
+  .home .homeContent .textDiv {
+    width: 100%;
+    padding-right: 2rem;
+  }
+  .home .homeContent .textDiv .homeTitle {
+    font-size: 2.3rem;
+    padding: 0 0 2.5rem;
+    width: -moz-max-content;
+    width: max-content;
+  }
+  .home .homeContent .textDiv .smallText {
+    font-size: 1rem; /* 16px in rem */
+    padding-bottom: 1.5rem;
+    margin-top: 3rem;
+  }
+  .home .homeContent .textDiv .input {
+    height: 2.5rem; /* 40px in rem */
+    margin-top: 3rem;
+    padding: 0 1rem;
+  }
+  .home .homeContent .textDiv .searchOptions {
+    bottom: 4rem; /* -3px in rem */
+  }
+  .home .homeContent .imageContainer {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .home .homeContent .imageContainer img {
+    width: 100%;
+    height: auto;
+  }
+  .home .homeContent .homeFooterIcons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  .home .homeContent .homeFooterIcons .icon {
+    font-size: 20px;
+    margin: 0 5px;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .home .homeContent .homeFooterIcons .icon:hover {
+    color: var(--hover);
+  }
+}
+@media screen and (min-width: 1240px) {
+  .home {
+    height: 160vh;
+  }
+  .home .homeContent {
+    padding-left: 3;
+    padding-right: 3;
+  }
+}/*# sourceMappingURL=home.css.map */

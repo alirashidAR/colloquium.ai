@@ -1,0 +1,240 @@
+/* Colours and styling */
+:root {
+    --white: #fff;
+    --bg1: #2F2F2F;
+    --bg2: #202020;
+    --button: #FF8838;
+    --hover: #FF7B23;
+    --black: #000;
+    --gradientColour: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+}
+
+.home{
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    background: var(--bg2);
+
+    .overlay{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: var(--bg1);
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        mix-blend-mode: hard-light;
+    }
+
+    .homeContent{
+        width: 100%;
+        height: max-content;
+        padding: 8rem 1.5rem 3rem;
+        display: flex;
+        row-gap: 3rem;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        margin: auto;
+        color: rgb(255, 255, 255);
+        z-index: 100;
+
+        .textDiv{
+            padding: 2rem 0 4rem;
+            .homeTitle{
+                position: relative;
+                font-size: 1.8rem;
+                padding: 0 0 1.5rem;
+            }
+            .smallText{
+                font-size: 11px;
+            }
+            .input{
+                height: 40px;
+                margin-top: 3rem;
+                padding: 0 1rem;
+                background: rgb(235, 239, 239);
+
+                input{
+                    background: none;
+                    border: none;
+                    outline: none;
+                    width: 100%;
+                    font-size: 13px;
+                    font-weight: 500;
+                    &::placeholder{
+                        font-size: 13px;
+                    }
+                }
+            }
+
+            .searchOptions{
+                position: absolute;
+                background: var(--button);
+                width: max-content;
+                bottom: -1rem;
+                column-gap: .8rem;
+                padding: 5px 1rem;
+                border-radius: 3rem;
+                left: 50%;
+                transform: translate(-50%);
+                justify-content: center;
+                cursor: pointer;
+
+                &:hover{
+                    background: var(--hover);
+                }
+
+                .icon{
+                    font-size: 18px;
+                }
+
+                span{
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .imageContainer {
+            position: relative;
+            border: 5px solid var(--button);
+            overflow: hidden; 
+        
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+        }
+
+        .homeFooterIcons{
+            width: 100%;
+            justify-content: space-between;
+
+            .icon{
+                font-size: 20px;
+                margin: 0 5px;
+                color: var(--white);
+                font-weight: 600;
+                &:hover{
+                    color: var(--hover);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .home{
+        .homeContent{
+            .textDiv{
+                .smallText{
+                    font-size: 16px;
+                }
+
+                .homeTitle{
+                    position: relative;
+                    font-size: 2.3rem;
+                    width: max-content;
+
+                    &::after{
+                        position: absolute;
+                        content: '';
+                        background: var(--darkslateblue);
+                        height: 5px;
+                        width: 145px;
+                        right: 0px;
+                        bottom: 5px;
+                        z-index: -1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 660px) {
+    .home{
+        .homeContent{
+        }
+    }
+}
+
+@media screen and (min-width: 940px) {
+    .home{
+        height: 60vh;
+        .homeContent{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-content: space-between;
+            gap: 8rem;
+            padding: 8rem 3rem 3rem;
+            
+            .textDiv {
+                width: 100%;
+                padding-right: 2rem;
+
+                .homeTitle {
+                    font-size: 2.3rem;
+                    padding: 0 0 2.5rem;
+                    width: max-content;
+                }
+                .smallText {
+                    font-size: 1rem; /* 16px in rem */
+                    padding-bottom: 1.5rem;
+                    margin-top: 3rem;
+                }
+                .input {
+                    height: 2.5rem; /* 40px in rem */
+                    margin-top: 3rem;
+                    padding: 0 1rem;
+                }
+                .searchOptions {
+                    bottom: 4rem; /* -3px in rem */
+                }
+            }
+            .imageContainer{
+                width: 90%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img{
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .homeFooterIcons {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 2rem 0;
+
+                .icon {
+                    font-size: 20px;
+                    margin: 0 5px;
+                    color: var(--white);
+                    font-weight: 600;
+                    &:hover {
+                        color: var(--hover);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1240px) {
+    .home{
+        height: 160vh;
+
+        .homeContent{
+            padding-left: 3;
+            padding-right: 3;
+        }
+    }
+}

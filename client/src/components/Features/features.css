@@ -1,0 +1,93 @@
+/* Import AOS CSS */
+@import 'aos/dist/aos.css';
+
+:root {
+  --white: #fff;
+  --bg1: #2F2F2F;
+  --bg2: #202020;
+  --button: #FF8838;
+  --hover: #FF7B23;
+  --black: #000;
+  --gradientColour: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+}
+
+/* Styling for the whole section */
+.features {
+  background-color:#202020;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+}
+
+/* Styling for the title section */
+.features .secTitle {
+  text-align: center;
+  font-size: 28px;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+/* Styling for the content section */
+.features .secContent {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  justify-content: center;
+  margin-top: 6rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Styling for each feature item */
+.features .featuremenu {
+  width: 100%;
+  height: 100%; /* Make all cards the same height */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.features .featuremenu:hover {
+  transform: translateY(-5px);
+}
+
+/* Styling for the image */
+.features .featuremenu .imageDiv img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Styling for the card info */
+.features .featuremenu .cardInfo {
+  padding-top: 20px;
+}
+
+/* Styling for the feature title */
+.features .featuremenu .cardInfo .destTitle {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Styling for the description */
+.features .featuremenu .cardInfo .desc {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Styling for the button */
+.features .featuremenu .cardInfo .btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.features .featuremenu .cardInfo .btn:hover {
+  background-color: #0056b3;
+}
