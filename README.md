@@ -47,6 +47,8 @@ We decided the plan of action and divided the wordload to go about in a systemat
 - Deploying the models and integrating them with the backend.
 
 - Non-Availability of compatible hardware and software for training our models.
+
+- Deploment issues as integrating with the backend needed a paid version on Heroku.
 ## Accomplishments
 
 We our proud of putting this project together as a team. It was a great experience for all of us to learn new tech stacks.
