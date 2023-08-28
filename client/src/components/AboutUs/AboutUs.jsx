@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import aboutImage from '../../Assets/aboutus.png';
 import './aboutus.css';
 
+import Aos from 'aos'
+import 'aos/dist/aos.css'
+import { init } from 'aos'
+
 const AboutUs = () => {
+
+  useEffect(()=>{
+    Aos.init({duration: 2000})
+  }, [])
+
   return (
     <div className="about-container">
-      <div className="about-text">
+      <div data-aos="fade-up" className="about-text">
         <h2>About Us</h2>
         <br></br>
         <br></br>
@@ -26,11 +35,11 @@ const AboutUs = () => {
             pivot, we're dedicated to helping you stand out and shine in any interview scenario.
           </p>
       </div>
-      <div className="about-image">
+      <div data-aos="fade-up" className="about-image">
         <img src={aboutImage} alt="About Us" />
       </div>
     </div>
   );
 };
 
-export default AboutUs
+export default AboutUs

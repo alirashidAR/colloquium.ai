@@ -72,5 +72,5 @@ const Features = () => {
     </section>
   );
 };
-
-export default Features;
+ 
+export default Features;
