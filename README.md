@@ -1,6 +1,8 @@
 
 # Colloquium.ai
 
+#First Cycle 
+
 ## What is does?
 
 **AI-Powered Insights**: Our advanced ML and Deep Learning models analyze a vast range of interview-related data to provide tailored insights for each user's needs. This includes commonly asked questions, industry-specific trends, and personalized suggestions for improvement.
