@@ -1,13 +1,17 @@
 import cv2
 from keras.models import model_from_json
 import numpy as np
-from flask import Flask, render_template, Response,request
+from flask import Flask, render_template, Response,request,jsonify,session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import jwt_required, set_access_cookies, unset_jwt_cookies, create_access_token, JWTManager, get_jwt_identity
 from datetime import timedelta
 import json
+from flask_cors import CORS, cross_origin
+from models import db, User
+
+
 app = Flask(__name__)
 
 json_file = open("emotiondetector.json", "r")
@@ -69,74 +73,67 @@ def process_transcript():
 
 
 ##Login and sign up
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///colloquium.sqlite"
-app.config['JWT_SECRET_KEY'] = "colloquium.ai"
-app.config['JWT_COOKIE_SECURE'] = False
+app.config['SECRET_KEY'] = 'cairocoders-ednalan'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskdb.db'
+ 
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_ECHO = True
 
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-jwt = JWTManager(app)
+bcrypt = Bcrypt(app) 
+CORS(app, supports_credentials=True)
+db.init_app(app)
 
-class User(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    email = db.Column(db.String(50), nullable=False, unique=True)
-    password = db.Column(db.String(100), nullable=False)
+
     
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        data = request.form
-
-        user = User.query.filter_by(email=data['email']).first()
-
-        if not user:
-            return Response(status=400, response=json.dumps({"message": "User does not exist"}))
-        
-
-        if not bcrypt.check_password_hash(user.password, data['password']):
-            return Response(status=400, response=json.dumps({"message": "Invalid password"}))
-        
-        access_token = create_access_token(identity=user.email, expires_delta=timedelta(minutes=60))
-
-        response = Response(status=200, response=json.dumps({"message": "Login successfull"}))
-        set_access_cookies(response, access_token) 
-
-        return response
-
-
-@app.route("/signup", methods=["GET", "POST"])
+with app.app_context():
+    db.create_all()
+ 
+@app.route("/")
+def hello_world():
+    return "Hello, World!"
+ 
+@app.route("/signup", methods=["POST"])
 def signup():
-    if request.method == "POST":
-        data = request.form
-            
-        if data["password"] != data["confirm_password"]:
-                return Response(status=400, response=json.dumps({"message": "Passwords do not match"}))
-
-        user = User(data['email'], bcrypt.generate_password_hash(data['password']).decode("utf-8"))
-        try:
-            db.session.begin()
-            db.session.add(user)
-            db.session.commit()
-        except SQLAlchemyError:
-            db.session.rollback()
-            return Response(status=400, response=json.dumps({"message": "Email already exists"}))
-            
-        return Response(status=200, response=json.dumps({"message": "Successfully created user"}))
-    
-@app.route("/logout", methods=["POST"])
-@jwt_required
-def logout():
-    response = Response(status=201, response=json.dumps({"message": "Logout Successfull"}))
-    unset_jwt_cookies(response)
-    return response
-
-@jwt.expired_token_loader
-def expired():
-    return Response(status=401, response=json.dumps({"message": "Session expired"})) # redirect to login page
-
-
-
-
-if __name__ == '__main__':
+    email = request.json["email"]
+    password = request.json["password"]
+ 
+    user_exists = User.query.filter_by(email=email).first() is not None
+ 
+    if user_exists:
+        return jsonify({"error": "Email already exists"}), 409
+     
+    hashed_password = bcrypt.generate_password_hash(password)
+    new_user = User(email=email, password=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+ 
+    session["user_id"] = new_user.id
+ 
+    return jsonify({
+        "id": new_user.id,
+        "email": new_user.email
+    })
+ 
+@app.route("/login", methods=["POST"])
+def login_user():
+    email = request.json["email"]
+    password = request.json["password"]
+  
+    user = User.query.filter_by(email=email).first()
+  
+    if user is None:
+        return jsonify({"error": "Unauthorized Access"}), 401
+  
+    if not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"error": "Unauthorized"}), 401
+      
+    session["user_id"] = user.id
+  
+    return jsonify({
+        "id": user.id,
+        "email": user.email
+    })
+ 
+if __name__ == "__main__":
     app.run(debug=True)

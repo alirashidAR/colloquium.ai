@@ -1,41 +1,39 @@
 import work from '../images/signup2.jpg';
 import React,{useState} from "react";
+import axios from 'axios'
 import { useNavigate ,} from "react-router-dom";
 
 const LoginForm = () => {
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = {
-      username,
-      password,
-    };
-
-    try {
-      const response = await fetch("/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-          navigate('/about'); 
-      } else {
-
-        const data = await response.json();
-        console.log(data.message); 
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
+    const logInUser = () => {
+        if(email.length === 0){
+          alert("Email has left Blank!");
+        }
+        else if(password.length === 0){
+          alert("password has left Blank!");
+        }
+        else{
+            axios.post('http://127.0.0.1:5000/login', {
+                email: email,
+                password: password
+            })
+            .then(function (response) {
+                console.log(response);
+                //console.log(response.data);
+                navigate("/about");
+            })
+            .catch(function (error) {
+                console.log(error, 'error');
+                if (error.response.status === 401) {
+                    alert("Invalid credentials");
+                }
+            });
+        }
     }
-  };
 
   
   return (
@@ -44,14 +42,14 @@ const LoginForm = () => {
       <div className="flex w-full">
         <div className="w-7/12 p-6 ml-40 mt-9 login shadow-xl rounded-lg"> {/* Changed shadow-lg to shadow-xl */}
           <h2 className="text-2xl font-bold mb-4">WELCOME!</h2>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="mb-4 mt-20">
-              <input type="text" id="username" name="username" placeholder="Email" className="mt-1 p-2 border w-full shadow-lg" />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} id="username" name="username" placeholder="Email" className="mt-1 p-2 border w-full shadow-lg" />
             </div>
             <div className="mb-4">
-              <input type="password" id="password" name="password" placeholder="Password" className="mt-1 p-2 border w-full shadow-lg" />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} id="password" name="password" placeholder="Password" className="mt-1 p-2 border w-full shadow-lg" />
             </div>
-            <button type="submit" className="w-full bg text-white py-2 rounded hover:bg-slate-900 mt-4">LOGIN</button>
+            <button type="submit" className="w-full bg text-white py-2 rounded hover:bg-slate-900 mt-4" onClick={logInUser}>LOGIN</button>
             <div className="flex justify-center mt-6 mb-2">
               <p>Don't have an account?</p>
             </div>
